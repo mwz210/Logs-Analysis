@@ -19,6 +19,7 @@ ___
 
   * **Windows 10**
   * **Python 3.6.5** - https://www.python.org/downloads/release/python-365/
+  * **VirtualBox 5.1.38** - https://www.virtualbox.org/wiki/Download_Old_Builds_5_1
   * **Vagrant 2.1.1** - https://www.vagrantup.com/downloads.html
   * **Git Bash 2.18.0** - https://git-scm.com/download/win
 
