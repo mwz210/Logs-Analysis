@@ -8,7 +8,10 @@ def prompt_1():
     """
     1. What are the most popular three articles of all time?
     """
-    conn = psycopg2.connect(database=DBName)
+    try:
+        conn = psycopg2.connect(database=DBName)
+    except:
+        print ("Unable to connect to the database")
     cursor = conn.cursor()
     cursor.execute(
         """
@@ -43,7 +46,10 @@ def prompt_2():
     """
     2. Who are the most popular article authors of all time?
     """
-    conn = psycopg2.connect(database=DBName)
+    try:
+        conn = psycopg2.connect(database=DBName)
+    except:
+        print ("Unable to connect to the database")
     cursor = conn.cursor()
     cursor.execute(
         """
@@ -85,7 +91,10 @@ def prompt_3():
     """
     3. On which days did more than 1% of requests lead to errors?
     """
-    conn = psycopg2.connect(database=DBName)
+    try:
+        conn = psycopg2.connect(database=DBName)
+    except:
+        print ("Unable to connect to the database")
     cursor = conn.cursor()
     cursor.execute(
         """
