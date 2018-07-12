@@ -1,9 +1,8 @@
-#!Python 3.6.5
+#!/usr/bin/env python3
 
 import psycopg2
 
 DBName = "news"
-
 
 def prompt_1():
     """
@@ -13,19 +12,18 @@ def prompt_1():
     cursor = conn.cursor()
     cursor.execute(
         """
-        select title, count(*) as sum
-            from (
-                    select title, name from articles inner join
-                    (
-                        select replace(replace(replace
-                            (substr(path,11), '-', ' '),
-                            'o many bears', 'here are a'),
-                            'googles', 'Google') as name
-                        from log where path != '/' and path != ' '
-                    )
-                    as fixed on title like '%' || name || '%'
-                )
-        as final group by title order by sum desc;
+        select title, sum from
+        (
+            select name, count(*) as sum from (
+                select replace(substr(path, 11), '-', ' ') as name from log
+                where path != '/' and path != ' '
+            ) as fixed_log
+            where name != '' and name != ' spam humbug'
+            group by name
+            order by name desc
+        ) as final_log inner join articles
+        on title like '%' || name || '%'
+        order by sum desc;
         """)
     list_path = cursor.fetchall()
 
@@ -57,11 +55,15 @@ def prompt_2():
                         on articles.author = authors.id
                     ) as joined_id inner join
                     (
-                        select replace(replace(replace
-                            (substr(path,11), '-', ' '),
-                            'o many bears', 'here are a'),
-                            'googles', 'Google') as name
-                        from log where path != '/' and path != ' '
+                        select name from
+                        (
+                            select replace(replace(replace
+                                (substr(path,11), '-', ' '),
+                                'o many bears', 'here are a'),
+                                'googles', 'Google') as name
+                            from log
+                        ) as replaced
+                        where name != '' and name != ' spam humbug'
                     )
                     as fixed on title like '%' || fixed.name || '%'
                 )
