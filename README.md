@@ -1,2 +1,2 @@
 # Logs-Analysis
-Back-end project for Full Stack Web Dev Nanodegree
+A program that runs SQL commands on a database for Udacity Web Developer Nanodegree.
